@@ -1,6 +1,7 @@
 import React from "react";
 import { Card } from "@mui/material";
 import moment from "moment";
+
 interface Weather {
   name: string;
   main: {
@@ -16,6 +17,7 @@ interface Weather {
   sys: {
     country: string;
   };
+  timezone: number;
 }
 
 interface WeatherCardProps {
@@ -23,6 +25,11 @@ interface WeatherCardProps {
 }
 
 const WeatherCard: React.FC<WeatherCardProps> = ({ weather }) => {
+  // Calculate local time using timezone offset
+  const localTime = moment()
+    .utcOffset(weather.timezone / 60)
+    .format("MMMM Do YYYY, h:mm:ss a");
+
   return (
     <Card className="weather-card">
       <h2>
@@ -32,7 +39,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weather }) => {
       <p>{weather.weather[0].description}</p>
       <p>Humidity: {weather.main.humidity}%</p>
       <p>Wind: {weather.wind.speed} m/s</p>
-      <p>{moment().format("MMMM Do YYYY, h:mm:ss a")}</p>
+      <p>{localTime}</p>
     </Card>
   );
 };

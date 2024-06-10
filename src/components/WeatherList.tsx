@@ -16,6 +16,7 @@ interface Weather {
   sys: {
     country: string;
   };
+  timezone: number;
 }
 
 interface WeatherListProps {

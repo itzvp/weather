@@ -23,6 +23,7 @@ interface Weather {
   sys: {
     country: string;
   };
+  timezone: number;
 }
 
 const App = () => {
